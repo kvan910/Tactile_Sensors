@@ -5,3 +5,6 @@ This is a work in progress to create a working Arduino library for the SPL06-007
 
 Link to datasheet
 https://datasheet.lcsc.com/szlcsc/1912111437_Goertek-SPL06-007_C233787.pdf
+
+Pressure_Info.ino redundant.
+MultiSensor_Fingertip.ino is the main file for retrieving sensor data.
