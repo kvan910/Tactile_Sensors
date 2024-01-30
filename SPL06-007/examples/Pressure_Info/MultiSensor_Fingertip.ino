@@ -15,7 +15,7 @@
 
 #define TCAADDR 0x70
 
-int Addresses[4];
+uint8_t Ports[1][3] = {0,4,7};
 
 void tcaselect(uint8_t i) {
   if (i > 7) return;
@@ -49,37 +49,38 @@ void setup()
         Wire.beginTransmission(addr);
         if (!Wire.endTransmission()) {
           Serial.print("Found I2C 0x");  Serial.println(addr,HEX);
-          Addresses[add_count] = t;
-          add_count++;
         }
+        delay(10);
       }
     }
-    Serial.println("\ndone");
+    Serial.println("done");
 }
 
 void loop() 
 {
-  for(int i=0; i<4; i++){
-      Serial.println(Addresses[i]);
-  }  
-
+  
   delay(1000);
   for(int i=0;i<3;i++){
-    tcaselect(Addresses[i]);
+    tcaselect(Ports[0][i]);
     Wire.begin();    // begin Wire(I2C)
     Serial.begin(115200); // begin Serial
-    Serial.println("\nGoertek-SPL06-007 Demo\n");
+    char buffer[30];
+    Serial.print("Goertek-SPL06-007 Demo: Setting up Sensor ");
+    Serial.println(Ports[0][i]);
     SPL_init(); // Setup initial SPL chip registers
   }
   while(1){
-    Serial.print(980);
+  }
+  /*
+  while(1){
+    Serial.print(115200);
     for(int i=0;i<3;i++){
-      tcaselect(Addresses[i]);
+      tcaselect(Addresses[1][i]);
       Serial.print("  ");
       Serial.print(get_pressure(),2);
       //Serial.println(1050);
     }
     Serial.println("  ");
-  }
+  }*/
   
 }
