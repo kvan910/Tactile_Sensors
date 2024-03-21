@@ -32,6 +32,7 @@ void tcaselect(uint8_t i) {
 void setup()
 {
     int add_count = 0;
+    int temp;
 
     //LED Pin Setup
     pinMode(LED_BUILTIN, OUTPUT);
@@ -58,8 +59,9 @@ void setup()
           Ports[1][t] = addr,HEX; //Ports[1][] stores the I2C address of the barometic sensors 
         }
       }
+      delay(10);
     }
-    Serial.println("Search Complete");
+    Serial.println("Search Complete\n");
 
     delay(1000);
     for(int i=0;i<8;i++){
@@ -68,16 +70,15 @@ void setup()
         Wire.begin();    // begin Wire(I2C)
         Serial.begin(BAUDRATE); // begin Serial
         char buffer[30];
-        Serial.print("Goertek-SPL06-007 Demo: Setting up Sensor @ Port ");
+        Serial.print("Goertek-SPL06-007: Setting up Sensor @ Port ");
         Serial.print(Ports[0][i]);
         Serial.print(" with address 0x");
         Serial.println(Ports[1][i],HEX);
         SPL_init(); // Setup initial SPL chip registers
       }
     }
-
     generatePressureBaseline();
-    Serial.print("           ");
+    Serial.print("Pressure Baselines: ");
     for(int i=0; i<8;i++){
         Serial.print(Pressure_Baseline[0][i]);
         Serial.print("  ");
@@ -102,9 +103,7 @@ uint8_t generatePressureBaseline(){
 }
 
 void loop() 
-{
-  //Serial.print((float)1300);                  //Used to Scale the Plotter
-  //Serial.print(" ");               
+{           
   for(int i=0;i<8;i++){
     if(Ports[0][i] != -1){
       tcaselect(Ports[0][i]);
@@ -115,7 +114,4 @@ void loop()
     }
   }
   Serial.println(" ");
-  //delay(10);
-  
-  
 }

@@ -5,7 +5,8 @@ uint8_t SPL_CHIP_ADDRESS = 0x76;
 
 void SPL_init()
 {
-	i2c_eeprom_write_uint8_t(SPL_CHIP_ADDRESS, 0X06, 0x03);	// Pressure 8x oversampling
+  //(0x71 == 01110001) Binary Number represents, 128 measurements per/sec(111) and 2x oversampling (0001).
+	i2c_eeprom_write_uint8_t(SPL_CHIP_ADDRESS, 0X06, 0x71);	// Pressure 8x oversampling Default: (SPL_CHIP_ADDRESS, 0x06, 0x03)
 
 	i2c_eeprom_write_uint8_t(SPL_CHIP_ADDRESS, 0X07, 0X83);	// Temperature 8x oversampling
 

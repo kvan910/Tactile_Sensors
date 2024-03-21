@@ -7,7 +7,7 @@ BAUDRATE = 921600
 
 def main():
     #setting up serial line
-    ser = serial.Serial('COM5', BAUDRATE)
+    ser = serial.Serial("/dev/ttyACM0", BAUDRATE)
     reader = ReadLine(ser)
     time.sleep(2)
     Startup = True
